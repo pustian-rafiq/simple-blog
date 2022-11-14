@@ -1,0 +1,95 @@
+import axios from "axios";
+import {
+    FETCH_POST_DATA,
+    FETCH_POST_DETAILS,
+    DELETE_POST
+  } from "../types";
+
+  const getPosts = (posts) => ({
+    type: FETCH_POST_DATA,
+    payload: posts,
+  });
+  const getPost = (post) => ({
+    type: FETCH_POST_DETAILS,
+    payload: post,
+  });
+
+
+  // Fetch all post's list
+export const getPostLists = () => {
+    return function (dispatch) {
+      axios
+        .get("https://jsonplaceholder.typicode.com/posts")
+        .then((resp) => {
+          console.log("post in action",resp.data)
+        //   console.log("resp.data",resp)
+        // resp.data.map((post) =>{
+        //     return(
+        //         axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+        //     )
+        // })
+        const posts = resp.data.slice(0,20);
+        const postWithComments =posts.map(post =>
+            axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+            .then(response => ({ ...post, comments: response.data }))
+        );
+        return Promise.all(postWithComments);
+        })
+        .then( (postWithComments) => {
+            const postWithCommentUser = postWithComments.slice(0,20);
+            const postCommentUser =postWithCommentUser.map(postComment =>
+                axios.get("https://jsonplaceholder.typicode.com/users")
+                .then(response => (
+                    { ...postComment, user: response.data.find(user => user.id === postComment.userId)}
+                    ))
+            );
+            return Promise.all(postCommentUser);
+        })
+        .then( (postCommentUser) => {
+            const postWithCommentUsers = postCommentUser.slice(0,20);
+            const postCommentUserPhoto =postWithCommentUsers.map(postCommentUser =>
+                axios.get("https://jsonplaceholder.typicode.com/photos")
+                .then(response => (
+                    { ...postCommentUser, photo: response.data.find(user => user.id === postCommentUser.userId).url}
+                    ))
+            );
+            return Promise.all(postCommentUserPhoto);
+        })
+        .then( (postCommentUserPhoto) => {
+            console.log("postCommentUserPhoto",postCommentUserPhoto);
+            dispatch(getPosts(postCommentUserPhoto));
+        })
+        .catch((error) => {
+          //console.log(error)
+        });
+    };
+  };
+  
+  // Fetch post details
+  export const getPostDetails = (id, headers) => {
+    return function (dispatch) {
+      axios
+        .get(`${baseUrl}/bank/list/${id}/`, { headers })
+        .then((resp) => {
+          dispatch(getPost(resp.data));
+        })
+        .catch((error) => console.log(error));
+    };
+  };
+
+
+// Delete Post
+export const deletePost = (id) => {
+    return function (dispatch) {
+      axios
+        .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then((resp) => {
+          dispatch({
+            type: DELETE_POST,
+            payload: id,
+          });
+ 
+        })
+        .catch((error) => console.log(error));
+    };
+  };
