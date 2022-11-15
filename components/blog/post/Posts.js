@@ -12,8 +12,6 @@ const Posts = () => {
   const { posts,loading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
- console.log("Post", posts);
-
   useEffect(() => {
     dispatch(getPostLists());
   }, []);
@@ -27,9 +25,9 @@ const Posts = () => {
     <Container>     
       <Row>  
         {
-            posts?.slice(0, 20).map((post) => {
+            posts?.slice(0, 20).map((post,i) => {
             return(
-              <Col md={3}>
+              <Col md={3} key={i}>
                <PostCard post={post} />
               </Col>
             )

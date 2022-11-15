@@ -51,7 +51,7 @@ export const getPostLists = () => {
             return Promise.all(postCommentUserPhoto);
         })
         .then( (postCommentUserPhoto) => {
-            console.log("postCommentUserPhoto",postCommentUserPhoto);
+            // console.log("postCommentUserPhoto",postCommentUserPhoto);
             dispatch(getPosts(postCommentUserPhoto));
         })
         .catch((error) => {
@@ -66,21 +66,17 @@ export const getPostLists = () => {
       axios
         .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((resp) => {
-          console.log(resp.data);
               const post = resp.data;
               var postWithComments = axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
               .then(response => ({ ...post, comments: response.data }))
-              // console.log("postWithComments",postWithComments);
           return Promise.resolve(postWithComments);
           })
           .then( (postWithComments) => {
-            console.log("postWithComments",postWithComments);
               const postComment = postWithComments;
               let postCommentUser = axios.get("https://jsonplaceholder.typicode.com/users")
                   .then(response => (
                       { ...postComment, user: response.data.find(user => user.id === postWithComments.userId)}
                       ))
-            console.log("postCommentUser Details",postCommentUser.object);
               return Promise.resolve(postCommentUser);
           })
           .then( (postCommentUser) => {
@@ -92,11 +88,10 @@ export const getPostLists = () => {
               return Promise.resolve(postCommentUserPhoto);
           })
           .then( (postCommentUserPhoto) => {
-              console.log("postCommentUserPhoto Details",postCommentUserPhoto);
               dispatch(getPost(postCommentUserPhoto));
           })
           .catch((error) => {
-            //console.log(error)
+            console.log(error)
        });
     };
   };

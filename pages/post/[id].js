@@ -41,7 +41,7 @@ const PostDeatils = ({postId}) => {
                          <hr></hr>
                          <div >
                             <h2 className="pb-2">Recent comments of this post</h2>
-                                {post?.comments?.map((data) =>  <Comments photo={post.photo} comment={data} />)}
+                                {post?.comments?.map((data,i) =>  <Comments photo={post.photo} comment={data} key={i} />)}
                          </div>
                     </div>
 
