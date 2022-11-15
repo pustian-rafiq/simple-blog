@@ -24,6 +24,18 @@ a {
     background: black;
   }
 }
+/* post style */
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /* Post details css */
 .author-section {

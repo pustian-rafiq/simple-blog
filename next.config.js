@@ -6,7 +6,7 @@
 // module.exports = nextConfig
 module.exports = {
   images: {
-    reactStrictMode: true,
+    // reactStrictMode: true,
     domains: ['via.placeholder.com'],
   },
 };

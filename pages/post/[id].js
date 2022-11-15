@@ -2,7 +2,7 @@ import React,{useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostDetails } from '../../redux/actions/postActions';
 import {Col, Container, Row } from 'react-bootstrap';
-import Comment from '../../components/blog/comment/Comment';
+import Comments from '../../components/blog/comment/Comment';
 import { FaUser } from 'react-icons/fa';
 import UserDeatils from '../../components/user/UserDeatils';
 import Meta from '../../components/Meta/Meta';
@@ -41,7 +41,7 @@ const PostDeatils = ({postId}) => {
                          <hr></hr>
                          <div >
                             <h2 className="pb-2">Recent comments of this post</h2>
-                                {post?.comments?.map((data) =>  <Comment photo={post.photo} comment={data} />)}
+                                {post?.comments?.map((data) =>  <Comments photo={post.photo} comment={data} />)}
                          </div>
                     </div>
 

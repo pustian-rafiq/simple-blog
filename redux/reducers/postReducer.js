@@ -29,9 +29,13 @@ import {
       case DELETE_POST:
         return {
           ...state,
-          posts: payload,
-          loading: false,
-        };
+          posts: state.posts.filter((post, index) => post.id !== action.payload)
+        }
+        // return {
+        //   ...state,
+        //   posts: payload,
+        //   loading: false,
+        // };
   
       default:
         return state;

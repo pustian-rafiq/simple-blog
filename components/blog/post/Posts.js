@@ -1,24 +1,21 @@
-import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { getPostLists } from '../../../redux/actions/postActions';
-import PostCard from './PostCard';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { getCommentLists } from '../../../redux/actions/commentActions';
+import React, {useEffect, useState} from 'react'
 
+import { useDispatch, useSelector } from "react-redux";
+import {Container, Row, Col} from 'react-bootstrap';
+
+import PostCard from './PostCard';
+import { getPostLists } from '../../../redux/actions/postActions';
 
 const Posts = () => {
 
+  //Fetch all post
   const { posts,loading } = useSelector((state) => state.posts);
-  // const { comments } = useSelector((state) => state.comments);
   const dispatch = useDispatch();
 
  console.log("Post", posts);
 
   useEffect(() => {
     dispatch(getPostLists());
-    dispatch(getCommentLists());
   }, []);
 
   if(loading){

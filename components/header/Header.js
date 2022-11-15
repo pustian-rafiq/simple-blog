@@ -7,10 +7,8 @@ const Header = () => {
     <>
       <Navbar bg="dark" variant="light">
         <Container>
-          <Navbar.Brand>
-              
-               <Link href="/">Simple Blog</Link> 
-               
+          <Navbar.Brand>    
+          <Link href="/">Simple Blog</Link> 
           </Navbar.Brand>
           <Nav className="me-auto">
             <Link href="/" className="px-3">Home</Link>  

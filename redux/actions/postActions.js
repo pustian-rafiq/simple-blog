@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+
 import {
     FETCH_POST_DATA,
     FETCH_POST_DETAILS,
@@ -53,7 +55,7 @@ export const getPostLists = () => {
             dispatch(getPosts(postCommentUserPhoto));
         })
         .catch((error) => {
-          //console.log(error)
+          console.log(error)
         });
     };
   };
@@ -66,17 +68,14 @@ export const getPostLists = () => {
         .then((resp) => {
           console.log(resp.data);
               const post = resp.data;
-             
               var postWithComments = axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
               .then(response => ({ ...post, comments: response.data }))
-              // .then((postData)=> ({ postData }))
-              console.log("postWithComments",postWithComments);
+              // console.log("postWithComments",postWithComments);
           return Promise.resolve(postWithComments);
           })
           .then( (postWithComments) => {
             console.log("postWithComments",postWithComments);
               const postComment = postWithComments;
-              // let postCommentUser;
               let postCommentUser = axios.get("https://jsonplaceholder.typicode.com/users")
                   .then(response => (
                       { ...postComment, user: response.data.find(user => user.id === postWithComments.userId)}
@@ -109,11 +108,12 @@ export const deletePost = (id) => {
       axios
         .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((resp) => {
+          toast.success("Post deleted successfully");
           dispatch({
             type: DELETE_POST,
             payload: id,
           });
- 
+          // dispatch(getPostLists())
         })
         .catch((error) => console.log(error));
     };

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Comment = ({photo,comment}) => {
+const Comments = ({photo,comment}) => {
   return (
     <div className="comment-section pb-3">
       <img src={photo} height="100" width="100"  className="author-image" />
@@ -12,4 +12,4 @@ const Comment = ({photo,comment}) => {
   )
 }
 
-export default Comment
+export default Comments
