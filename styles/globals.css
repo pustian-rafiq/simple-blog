@@ -24,3 +24,68 @@ a {
     background: black;
   }
 }
+
+/* Post details css */
+.author-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.author-image {
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+.author-name {
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 10px;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+.author-name:hover {
+  color: rgb(181, 133, 23);
+}
+
+.comment-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.comment-name {
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 10px;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+.comment-body {
+  font-size: 14px;
+  font-weight: normal;
+  padding-left: 10px;
+  transition: 0.4s ease;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.comment-name:hover {
+  color: rgb(181, 133, 23);
+}
+.card-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.card-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  /* margin-left: 35%; */
+}

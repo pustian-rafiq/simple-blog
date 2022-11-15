@@ -5,12 +5,12 @@ import Header from "../components/header/Header";
 import Meta from "../components/Meta/Meta";
 
 
-const MainLayout = () => {
+const MainLayout = ({children}) => {
   return (
     <>
      <Meta/>
      <Header />
-     <Posts/>
+     { children }
      <Footer />
      
 

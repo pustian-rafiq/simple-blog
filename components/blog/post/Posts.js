@@ -10,25 +10,25 @@ import { getCommentLists } from '../../../redux/actions/commentActions';
 
 const Posts = () => {
 
-  const { posts } = useSelector((state) => state.posts);
-  const { comments } = useSelector((state) => state.comments);
+  const { posts,loading } = useSelector((state) => state.posts);
+  // const { comments } = useSelector((state) => state.comments);
   const dispatch = useDispatch();
 
-  console.log("posts",posts)
-  console.log("comments",comments)
+ console.log("Post", posts);
 
   useEffect(() => {
     dispatch(getPostLists());
     dispatch(getCommentLists());
   }, []);
 
+  if(loading){
+    return <h4>Loading posts....</h4>
+  }
   return (
     <>
     <h3 className="my-3 text-center text-info">Show first 20 posts</h3>
-    <Container>
-       
-      <Row>
-       
+    <Container>     
+      <Row>  
         {
             posts?.slice(0, 20).map((post) => {
             return(
@@ -37,13 +37,9 @@ const Posts = () => {
               </Col>
             )
           })
-        }
-       
-        
+        } 
       </Row>
     </Container>
-    
-    {/* <PostCard /> */}
     </>
   );
 }

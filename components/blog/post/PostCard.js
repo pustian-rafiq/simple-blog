@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import {FaTrash} from 'react-icons/fa';
@@ -18,7 +19,12 @@ const PostCard = ({post}) => {
     <Card  style={{  marginBottom:'10px' }}>
        <Card.Img variant="top" src={post.photo} />
       <Card.Body>
-        <Card.Title>{post?.title}</Card.Title>
+        <Link href={{
+          pathname: `/post/${post.id}`,
+          query: { data: JSON.stringify(post)}
+        }}
+        as={`/post/${post.id}`}
+        >{post?.title} </Link> 
         <Card.Text>
         {post?.body.substring(0, 50)}
         </Card.Text>

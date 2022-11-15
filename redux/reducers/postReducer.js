@@ -23,7 +23,7 @@ import {
       case FETCH_POST_DETAILS:
         return {
           ...state,
-          categories: payload,
+          post: payload,
           loading: false,
         };
       case DELETE_POST:

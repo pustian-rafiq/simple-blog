@@ -1,8 +1,24 @@
+import Link from 'next/link'
 import React from 'react'
+import { Container, Nav, Navbar, NavLink } from 'react-bootstrap'
 
 const Header = () => {
   return (
-    <div className="bg-success py-3 text-center">Header</div>
+    <>
+      <Navbar bg="dark" variant="light">
+        <Container>
+          <Navbar.Brand>
+              
+               <Link href="/">Simple Blog</Link> 
+               
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            <Link href="/" className="px-3">Home</Link>  
+            <Link href="/post">Posts</Link>  
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
   )
 }
 

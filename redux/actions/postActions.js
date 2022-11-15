@@ -21,13 +21,6 @@ export const getPostLists = () => {
       axios
         .get("https://jsonplaceholder.typicode.com/posts")
         .then((resp) => {
-          console.log("post in action",resp.data)
-        //   console.log("resp.data",resp)
-        // resp.data.map((post) =>{
-        //     return(
-        //         axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
-        //     )
-        // })
         const posts = resp.data.slice(0,20);
         const postWithComments =posts.map(post =>
             axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
@@ -66,14 +59,46 @@ export const getPostLists = () => {
   };
   
   // Fetch post details
-  export const getPostDetails = (id, headers) => {
+  export const getPostDetails = (id) => {
     return function (dispatch) {
       axios
-        .get(`${baseUrl}/bank/list/${id}/`, { headers })
+        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((resp) => {
-          dispatch(getPost(resp.data));
-        })
-        .catch((error) => console.log(error));
+          console.log(resp.data);
+              const post = resp.data;
+             
+              var postWithComments = axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+              .then(response => ({ ...post, comments: response.data }))
+              // .then((postData)=> ({ postData }))
+              console.log("postWithComments",postWithComments);
+          return Promise.resolve(postWithComments);
+          })
+          .then( (postWithComments) => {
+            console.log("postWithComments",postWithComments);
+              const postComment = postWithComments;
+              // let postCommentUser;
+              let postCommentUser = axios.get("https://jsonplaceholder.typicode.com/users")
+                  .then(response => (
+                      { ...postComment, user: response.data.find(user => user.id === postWithComments.userId)}
+                      ))
+            console.log("postCommentUser Details",postCommentUser.object);
+              return Promise.resolve(postCommentUser);
+          })
+          .then( (postCommentUser) => {
+              const postWithCommentUsers = postCommentUser;
+              const postCommentUserPhoto = axios.get("https://jsonplaceholder.typicode.com/photos")
+                  .then(response => (
+                      { ...postCommentUser, photo: response.data.find(user => user.id === postWithCommentUsers.userId).url}
+                      ))
+              return Promise.resolve(postCommentUserPhoto);
+          })
+          .then( (postCommentUserPhoto) => {
+              console.log("postCommentUserPhoto Details",postCommentUserPhoto);
+              dispatch(getPost(postCommentUserPhoto));
+          })
+          .catch((error) => {
+            //console.log(error)
+       });
     };
   };
 
