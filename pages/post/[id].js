@@ -1,9 +1,11 @@
 import React,{useEffect} from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostDetails } from '../../redux/actions/postActions';
 import {Col, Container, Row } from 'react-bootstrap';
-import Comments from '../../components/blog/comment/Comment';
 import { FaUser } from 'react-icons/fa';
+
+import { getPostDetails } from '../../redux/actions/postActions';
+import Comments from '../../components/blog/comment/Comment';
 import UserDeatils from '../../components/user/UserDeatils';
 import Meta from '../../components/Meta/Meta';
 

@@ -12,7 +12,8 @@ const Header = () => {
           </Navbar.Brand>
           <Nav className="me-auto">
             <Link href="/" className="px-3">Home</Link>  
-            <Link href="/post">Posts</Link>  
+            <Link href="/post"  className="px-3">Posts</Link>  
+            <Link href="https://github.com/pustian-rafiq/simple-blog">Github Link</Link>  
           </Nav>
         </Container>
       </Navbar>
