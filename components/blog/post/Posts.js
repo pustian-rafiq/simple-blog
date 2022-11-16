@@ -27,7 +27,7 @@ const Posts = () => {
         {
             posts?.slice(0, 20).map((post,i) => {
             return(
-              <Col md={3} key={i}>
+              <Col md={3} sm={12} key={i}>
                <PostCard post={post} />
               </Col>
             )
